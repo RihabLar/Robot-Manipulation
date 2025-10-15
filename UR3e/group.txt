@@ -1,0 +1,14 @@
+ Program
+   Variables Setup
+   Robot Program
+     MoveL
+       first
+       second
+       third
+       fourth
+       fifth
+       sixth
+       seven
+       eight
+       nine
+       ten
