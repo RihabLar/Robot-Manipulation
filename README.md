@@ -39,9 +39,5 @@ Programmed the robot to polish an irregular surface using force control. Defined
 ---
 
 **Team**: Rihab Laroussi, Priyam Gupta, Davina Sanghera  
-**Supervisor**: Jad Mansour  
 **Date**: December 2024
 
-Team Members: Rihab Laroussi, Priyam Gupta, Davina Sanghera
-Supervisor: Jad Mansour
-Institution: University of Girona - IFROS Program
