@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="stop" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  putln(".....Program Ended.....")
+  delay(0.2)
+  putln("Going to the Home position")
+  movej(home_pos[0], tTool[0], mNomSpeed)
+  waitEndMove()
+  close(tTool[0])
+  close(tTool[1])
+  resetMotion()  
+  disablePower()
+end
+            </code>
+    </source>
+  </program>
+</programList>

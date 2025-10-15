@@ -1,0 +1,60 @@
+﻿{
+  "programs": [
+    {
+      "mode": 3,
+      "name": "stop",
+      "nodes": []
+    },
+    {
+      "mode": 3,
+      "name": "parameters_dio",
+      "nodes": []
+    },
+    {
+      "mode": 3,
+      "name": "start",
+      "nodes": [
+        {
+          "start": 1030,
+          "end": 2473,
+          "isCollapsed": false
+        },
+        {
+          "start": 1428,
+          "end": 1489,
+          "isCollapsed": false
+        },
+        {
+          "start": 1533,
+          "end": 2179,
+          "isCollapsed": false
+        },
+        {
+          "start": 1854,
+          "end": 2169,
+          "isCollapsed": false
+        },
+        {
+          "start": 2751,
+          "end": 2793,
+          "isCollapsed": false
+        },
+        {
+          "start": 2799,
+          "end": 2847,
+          "isCollapsed": false
+        },
+        {
+          "start": 2984,
+          "end": 4388,
+          "isCollapsed": false
+        },
+        {
+          "start": 4397,
+          "end": 5818,
+          "isCollapsed": false
+        }
+      ]
+    }
+  ]
+}

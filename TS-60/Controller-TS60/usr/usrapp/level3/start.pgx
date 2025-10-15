@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="start" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  userPage()
+  cls()
+  enablePower()
+  // initializing the Digital IOs from the function
+  call parameters_dio()
+  putln("Start the program")
+  mNomSpeed.vel = 30
+  
+  // Moving the robot to its home position at the start
+  putln("Going to the Home position")
+  movej(home_pos[0], tTool[0], mNomSpeed)
+  waitEndMove()
+  delay(0.50)
+  
+  // Disabling the suction and blow outputs linked with the tool for pick and place
+  close(tTool[0])
+  close(tTool[1])
+  
+  // Initializing the values for number of pieces as 0
+  i = 0
+  num_metal = 0
+  num_nonMetal = 0
+  
+  // Initially turning off all the outputs
+  dioSet(trolleyControl, 0)
+  dioSet(actuator1On, 0)
+  dioSet(actuator2On, 1)
+  
+  // In our code, the pieces will be first sorted as metallic or non-metallic an placed in either
+  // ramp 1 or ramp 2 and once all the pieces are sorted, the robot manipulator will begin with
+  // the pick and place operation from the ramps to the piece tray
+  
+  // partSupply -&gt; Presence sensor 1  &amp;  partClassify -&gt; Presence sensor 2
+  while dioGet(partSupply) == 1 or dioGet(partClassify) == 1
+    dioSet(barrier, 0)
+    putln("Classification process loop begin")
+    // Keeping the trolley on until the part is detected by presence sensor 2
+    putln("Trolley started")
+    dioSet(trolleyControl, 1)
+    
+    // waiting for the part to reach the presence sensor 2 where it will be classified 
+    // as metallic or non-metallic
+    while dioGet(partClassify) == 0
+      delay(0.1)
+    endWhile
+  
+    // metallic -&gt; Inductive sensor
+    if dioGet(metallic) == 1
+      // Turning on the class-actuator 1 to place the part in the ramp 1 (for metallic parts)
+      putln("Metallic part is detected")
+      // Metalic actuator On
+      dioSet(actuator1On, 1)
+      // incrementing the counter for metallic part
+      num_metal = num_metal + 1
+      delay(1)
+    else
+      // Turning on the class-actuator 2 to place the part in the ramp 2 (for non-metallic parts)
+      putln("Non-Metallic part is detected")
+      // Metalic actuator Off
+      dioSet(actuator1On, 0)
+      // incrementing the counter for non-metallic part
+      num_nonMetal = num_nonMetal + 1
+      delay(1)
+    endIf
+
+    dioSet(barrier, 1)
+    delay(0.3)
+    // Turning on the barrier so that it can stop the next part which will be required to classify
+    // and preventing it to move to the ramp as the trolley is turned on
+    dioSet(barrier, 0)
+    putln("Closing the barrier")
+  
+    delay(2)
+  endWhile
+  
+  putln("Classification process loop completed")
+  // Non-Metalic and Metallic actuators Off
+  dioSet(actuator1On, 0)
+  dioSet(actuator2On, 0)
+  delay(0.5)
+  dioSet(trolleyControl, 0)
+  // Bounding conditions as we are working with 4 metallic and non-metallic pieces each
+  if num_metal &gt; 4
+    num_metal = 3
+  endIf
+  
+  if num_nonMetal &gt; 4
+    num_nonMetal = 3
+  endIf
+  
+  // Robot pick and place loop
+  // tTool[0] -&gt; suction output for picking the part &amp; tTool[1] -&gt; blow output for placing the part
+  for i = 0 to num_metal step 1
+    
+    // Picking operation of metallic part by the robot manipulator
+    movej(appro(pickMetallic[0], {0, 0, -150, 0, 0, 0}), tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Moving to the position of the metallic part")
+    movej(pickMetallic[0], tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Metallic part position reached. Activating the suction for picking the part.")
+    // Turning on the suction command
+    open(tTool[0])
+    movej(appro(pickMetallic[0], {0, 0, -150, 0, 0, 0}), tTool[0], mNomSpeed)
+    
+    // Placing operation of metallic part by the robot manipulator in the tray matrix
+    movej(appro(originPlate, {60*i, 70, -120, 0, 0, 0}), tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Moving to the position at which metallic part is to be placed in the tray matrix")
+    movej(appro(originPlate, {60*i, 70, 0, 0, 0, 0}), tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Tray matrix position for metallic part is reached. Activating the blow command for placing the part.")
+    // Turning off the suction command
+    close(tTool[0])
+    // Turning on the blow command
+    open(tTool[1])
+    delay(0.5)
+    // Turning on the blow command after a delay
+    close(tTool[1])
+    putln("Metallic part placed in the tray matrix. Deactivating the suction output.")
+    movej(appro(originPlate, {60*i, 70, -120, 0, 0, 0}), tTool[0], mNomSpeed)
+  endFor
+  
+  
+  for i = 0 to num_nonMetal step 1
+    // Picking operation of non-metallic part by the robot manipulator
+    movej(appro(pickNonMetallic[0], {0, 0, -150, 0, 0, 0}), tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Moving to the position of the non-metallic part")
+    movej(pickNonMetallic[0], tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Non-metallic part position reached. Activating the suction for picking the part.")
+    // Turning on the suction command
+    open(tTool[0])
+    movej(appro(pickNonMetallic[0], {0, 0, -150, 0, 0, 0}), tTool[0], mNomSpeed)
+    
+    // Placing operation of non-metallic part by the robot manipulator in the tray matrix
+    movej(appro(originPlate, {60*i, 0, -120, 0, 0, 0}), tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Moving to the position at which non-metallic part is to be placed in the tray matrix")
+    movej(appro(originPlate, {60*i, 0, 0, 0, 0, 0}), tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Tray matrix position for non-metallic part is reached. Activating the blow command for placing the part.")
+    // Turning off the suction command
+    close(tTool[0])
+    // Turning on the blow command
+    open(tTool[1])
+    // Turning on the blow command after a delay
+    close(tTool[1])
+    putln("Non-metallic part placed in the tray matrix. Deactivating the suction output.")
+    movej(appro(originPlate, {60*i, 0, -120, 0, 0, 0}), tTool[0], mNomSpeed)
+  endFor
+  
+  call stop()
+  
+end</code>
+    </source>
+  </program>
+</programList>

@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataList xmlns="DataNameSpace">
+  <aioSection />
+  <boolSection />
+  <configRsSection />
+  <configSection />
+  <dioSection>
+    <dio size="1" name="pick" public="false" />
+    <dio size="1" name="place" public="false" />
+    <dio size="1" name="trolleyControl" public="false" />
+    <dio size="1" name="partSupply" public="false" />
+    <dio size="1" name="partRamp" public="false" />
+    <dio size="1" name="partPresence" public="false" />
+    <dio size="1" name="partClassify" public="false" />
+    <dio size="1" name="metallic" public="false" />
+    <dio size="1" name="barrier" public="false" />
+    <dio size="1" name="actuator2On" public="false" />
+    <dio size="1" name="actuator2Extend" public="false" />
+    <dio size="1" name="actuator2Cont" public="false" />
+    <dio size="1" name="actuator1On" public="false" />
+    <dio size="1" name="actuator1Extend" public="false" />
+    <dio size="1" name="actuator1Cont" public="false" />
+  </dioSection>
+  <frameSection>
+    <frame name="world" public="false">
+      <fFather alias="" name="" fatherIndex="0" />
+      <valueFrame index="0">
+        <tfValue x="0" y="0" z="0" rx="0" ry="0" rz="0" />
+      </valueFrame>
+    </frame>
+    <frame name="plate_pos" public="false">
+      <fFather alias="" name="world" fatherIndex="0" />
+      <valueFrame index="0">
+        <tfValue x="471.03192" y="320.80753" z="-8.50574" rx="180" ry="0" rz="85" />
+      </valueFrame>
+    </frame>
+  </frameSection>
+  <jointRsSection>
+    <jointRs name="home_pos" public="false">
+      <valueJointRs index="0">
+        <jointRsValue j1="-45" j2="90" j3="180" j4="0" />
+      </valueJointRs>
+    </jointRs>
+  </jointRsSection>
+  <jointSection />
+  <mdescSection>
+    <mdesc name="mNomSpeed" public="true">
+      <valueMdesc index="0">
+        <mdescValue accel="100" vel="100" decel="100" tmax="99999" rmax="99999" blend="joint" leave="50" reach="50" />
+      </valueMdesc>
+    </mdesc>
+  </mdescSection>
+  <numSection>
+    <num name="i" public="false">
+      <valueNum value="0" index="0" />
+    </num>
+    <num name="num_metal" public="false">
+      <valueNum value="0" index="0" />
+    </num>
+    <num name="num_nonMetal" public="false">
+      <valueNum value="0" index="0" />
+    </num>
+  </numSection>
+  <pointRsSection>
+    <pointRs name="pickMetallic" public="false">
+      <pRsFather alias="" name="world" fatherIndex="0" />
+      <valuePointRs index="0">
+        <tpRsValue x="62.45784" y="460.06096" z="7.45" rx="-180" ry="0" rz="76.67927" />
+        <cpRsValue shoulder="ssame" />
+      </valuePointRs>
+    </pointRs>
+    <pointRs name="pickNonMetallic" public="false">
+      <pRsFather alias="" name="world" fatherIndex="0" />
+      <valuePointRs index="0">
+        <tpRsValue x="64.42311" y="536.1246" z="10.78" rx="-180" ry="0" rz="88.58131" />
+        <cpRsValue shoulder="righty" />
+      </valuePointRs>
+    </pointRs>
+    <pointRs name="originPlate" public="false">
+      <pRsFather alias="" name="plate_pos" fatherIndex="0" />
+      <valuePointRs index="0">
+        <tpRsValue x="0" y="0" z="0" rx="0" ry="0" rz="0" />
+        <cpRsValue shoulder="sfree" />
+      </valuePointRs>
+    </pointRs>
+  </pointRsSection>
+  <pointSection />
+  <sioSection />
+  <stringSection />
+  <toolSection>
+    <tool name="flange" public="false">
+      <tFather alias="" name="" fatherIndex="0" />
+      <valueTool index="0">
+        <ttValue x="0" y="0" z="0" rx="0" ry="0" rz="0" />
+        <io alias="io" name="valve1" ioIndex="0" open="0" close="0" />
+      </valueTool>
+    </tool>
+    <tool name="tTool" public="false">
+      <tFather alias="" name="flange" fatherIndex="0" />
+      <valueTool index="0">
+        <ttValue x="0" y="0" z="20" rx="0" ry="0" rz="0" />
+        <io alias="io" name="bOut0" ioIndex="0" open="0.3" close="0.3" />
+      </valueTool>
+      <valueTool index="1">
+        <ttValue x="0" y="0" z="20" rx="0" ry="0" rz="0" />
+        <io alias="io" name="bOut1" ioIndex="0" open="0.3" close="0.3" />
+      </valueTool>
+    </tool>
+  </toolSection>
+  <trsfSection />
+</dataList>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="start" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  userPage()
+  cls()
+  enablePower()
+  call parameters_dio()
+  putln("Start the program")
+  movej(Home_pos[0], tTool[0], mNomSpeed)
+  waitEndMove()
+  // suction = OFF &amp; blow = OFF
+  dioSet(pick, 0)
+  dioSet(place, 0)
+  
+  putln("Home position Reached")
+  delay(2)
+  
+  mNomSpeed.vel=30
+    
+  for i = 0 to 1
+    putln("Move to the ramp")
+    movej(pPick[i], tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Pick position reached")
+    // Cylinder picked, suction = ON &amp; blow = OFF
+    dioSet(pick, 1)
+    dioSet(place, 0)
+    delay(2)
+    //waitEndMove()
+    putln("Cylinder Picked")
+    
+    delay(2)
+    //waitEndMove()
+    putln("Moving to the array to place cylinder")
+    movej(pPlace[i], tTool[0], mNomSpeed)
+    waitEndMove()
+    putln("Place position reached")
+    // Cylinder placed, suction = OFF &amp; blow = ON
+    delay(2)
+    dioSet(pick, 0)  
+    dioSet(place, 1)
+    //waitEndMove()
+    delay(2)
+    putln("Cylinder Placed")
+    
+    // suction = OFF &amp; blow = OFF
+    dioSet(pick, 0)  
+    dioSet(place, 0)
+    //waitEndMove()
+    delay(2)
+    
+  endFor
+  
+  putln("Back to Home Position")
+  movej(Home_pos[0], tTool[0], mNomSpeed)
+  waitEndMove()
+  putln("Home position Reached")
+  
+  close(tTool[0])
+  //open(tTool[0])
+end
+            </code>
+    </source>
+  </program>
+</programList>

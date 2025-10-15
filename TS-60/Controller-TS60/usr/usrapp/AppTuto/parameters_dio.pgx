@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="parameters_dio" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  // Suction
+  dioLink(pick, io:bOut0)
+  dioLink(place, io:bOut1)
+  // Blow
+  dioLink(trolleyControl, io:bOut2)
+  // Metal Actuator
+  dioLink(actuator1On, io:bOut3)
+  // Non-Metal Actuator
+  dioLink(actuator2On, io:bOut4)
+  // Barrier
+  dioLink(barrier, io:bOut5)
+  
+  dioLink(partPresence, io:bIn0)
+  // Presence sensor 1 detects part supplied
+  dioLink(partSupply, io:bIn3)  
+  //Presence sensor 2 detects if there is a part to classify
+  dioLink(partClassify, io:bIn1)
+  //Indusctive sensor to detect metallic parts
+  dioLink(metallic, io:bIn2)
+  dioLink(actuator1Extend, io:bIn5)
+  dioLink(actuator1Cont, io:bIn6)
+  dioLink(actuator2Extend, io:bIn7)
+  dioLink(actuator2Cont, io:bIn8)
+  //Presence sensor 3 detects when one part goes down in one of the ramps
+  dioLink(partRamp, io:bIn4)
+end</code>
+    </source>
+  </program>
+</programList>
