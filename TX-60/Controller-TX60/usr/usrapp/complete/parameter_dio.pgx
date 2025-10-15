@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="parameter_dio" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  // Gripper control - open &amp; close
+  dioLink(gripper, io:bOut0)
+  
+  // Control to move pneumatic pistion of cylinder dispenser
+  dioLink(dispenser, io:bOut10)
+  
+  // Sensor for sensing piston in the piston source
+  dioLink(pistonSense, io:bIn0)
+  
+  // Sensor for sensing cylinder in the cylinder dispenser
+  dioLink(cylinderSense, io:bIn2)
+  
+  // Sensor for sensing if the pneumatic actuator of the 
+  // Cylinder dispenser is extended
+  dioLink(dispExtend, io:bIn14)
+  
+  // Sensor for sensing if the pneumatic actuator of the 
+  // Cylinder dispenser is contracted
+  dioLink(dispContract, io:bIn15)
+  
+end</code>
+    </source>
+  </program>
+</programList>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="start" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  
+  userPage()
+  cls()
+  
+  putln("Start the program")
+  enablePower()
+  
+  // initializing the Digital IOs by calling the function
+  call parameter_dio()
+  
+  slowSpeed.vel = 30
+  mNomSpeed.vel = 40
+  
+  // Hoome position
+  movej(homePos[0], lateralTool[0], mNomSpeed[0])
+  waitEndMove()
+  putln("Home position reached")
+  i = 0
+  j = 0
+  k = 0
+  
+  for i = 0 to 3 step 1
+        
+    call pickCylinder()
+    call pickPistion()
+    
+    putln("Ready to pickup the assembly of cylinder and piston")
+    // Cylinder Gripper open
+    open(lateralTool[0])
+    waitEndMove()
+    
+    movej(appro(cylinAssembly[0], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+    waitEndMove()
+    movel(cylinAssembly[0], lateralTool[0], slowSpeed[0])
+    waitEndMove()
+    putln("Assembly pickup position reached")
+    close(lateralTool[0])
+    waitEndMove()
+    putln("Cylinder &amp; piston assembly grasped")
+    movej(appro(cylinAssembly[0], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+    // Moving to the assembly matrix for placing the cylinder and piston assembly
+    movej(appro(pAssemblyMatrix[i], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+    movel(pAssemblyMatrix[i], lateralTool[0], slowSpeed[0])
+    waitEndMove()
+    
+    // placing the assembly into the matrix
+    open(lateralTool[0])
+    waitEndMove()
+    
+    movej(appro(pAssemblyMatrix[i], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+  endFor
+  
+  putln("No more parts to assemble...Program finished")
+  call stop()
+  
+end</code>
+    </source>
+  </program>
+</programList>

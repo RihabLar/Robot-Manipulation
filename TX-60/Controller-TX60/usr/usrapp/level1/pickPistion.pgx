@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="pickPistion" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  
+  // Changing the tool for pick and place of the pistion
+  putln("Changing the Tool for pistion operations")
+  // Opening the piston gripper
+  open(tipTool[0])
+  waitEndMove()
+  
+  // Sensing the presence of piston using piston sensor
+  movej(appro(pscan[0], {0,-i*25,-100,0,0,0}), tipTool[0], mNomSpeed[0])
+  waitEndMove()
+  movej(appro(pscan[0], {0,-i*25,0,0,0,0}), tipTool[0], slowSpeed[0])
+  waitEndMove()
+  movej(appro(pscan[0], {0,-i*25,-100,0,0,0}), tipTool[0], mNomSpeed[0])
+  waitEndMove()
+  
+  if dioGet(pistonSense) == 1
+    putln("Piston sensed")
+    movej(appro(pistonPick[0], {0,-i*25,-100,0,0,0}), tipTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+    //movel(pistonPick[i], tipTool[0], mNomSpeed[0])
+    movej(appro(pistonPick[0], {0,-i*25,0,0,0,0}), tipTool[0], slowSpeed[0])
+    waitEndMove()
+    putln("Pistion pickup position reached")
+    
+    // Closing the piston gripper
+    close(tipTool[0])
+    waitEndMove()
+    putln("Piston Picked")
+    
+    //movej(appro(pistonPick[i], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+    movej(appro(pistonPick[0], {0,-i*25,-100,0,0,0}), tipTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+    // Moving to the assembly station for placing the piston
+    movej(appro(pistonAssembly[0], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+    waitEndMove()
+    putln("Assembly station postion reached")
+    movel(pistonAssembly[0], tipTool[0], slowSpeed[0])
+    waitEndMove()
+    // Opening the piston gripper
+    open(tipTool[0])
+    waitEndMove()
+    putln("Piston placed on the assembly station")
+    
+    movej(appro(pistonAssembly[0], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+    waitEndMove()
+    // Closing the piston gripper
+    close(tipTool[0])
+    waitEndMove()
+    putln("Changing the Tool")
+    
+    putln("Ready to pickup the assembly of cylinder and piston")
+    // Cylinder Gripper open
+    open(lateralTool[0])
+    waitEndMove()
+    movej(appro(cylinAssembly[0], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+    waitEndMove()
+    movel(cylinAssembly[0], lateralTool[0], slowSpeed[0])
+    waitEndMove()
+    putln("Assembly pickup position reached")
+    close(lateralTool[0])
+    waitEndMove()
+    putln("Cylinder &amp; piston assembly grasped")
+    movej(appro(cylinAssembly[0], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+    waitEndMove()
+  endIf
+  
+  while( dioGet(pistonSense) == 0 and i&lt;3)
+    putln("No piston sensed")
+    i = i + 1
+    // Sensing the presence of piston using piston sensor
+    movej(appro(pscan[0], {0,-(i)*25,-100,0,0,0}), tipTool[0], mNomSpeed[0])
+    waitEndMove()
+    movej(appro(pscan[0], {0,-(i)*25,0,0,0,0}), tipTool[0], slowSpeed[0])
+    waitEndMove()
+    movej(appro(pscan[0], {0,-(i)*25,-100,0,0,0}), tipTool[0], mNomSpeed[0])
+    waitEndMove()
+        
+  endWhile
+        
+end</code>
+    </source>
+  </program>
+</programList>

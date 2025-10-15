@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="start" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  
+  userPage()
+  cls()
+  
+  putln("Start the program")
+  enablePower()
+  
+  // initializing the Digital IOs by calling the function
+  call parameter_dio()
+  
+  slowSpeed.vel = 20
+  mNomSpeed.vel = 30
+  
+  // Hoome position
+  movej(homePos[0], lateralTool[0], mNomSpeed[0])
+  waitEndMove()
+  putln("Home position reached")    
+  i = 0
+  // endFor
+  while i &lt; 3
+    
+    call pickCylinder()
+    call pickPistion()
+    
+      if(i == 3)
+        putln("No more pistons...Program finished")
+        call stop()
+      endIf
+    
+    // Moving to the assembly matrix for placing the cylinder and piston assembly
+    movej(appro(pAssemblyMatrix[i], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+    movel(pAssemblyMatrix[i], lateralTool[0], slowSpeed[0])
+    waitEndMove()
+    
+    // placing the assembly into the matrix
+    open(lateralTool[0])
+    waitEndMove()
+    
+    movej(appro(pAssemblyMatrix[i], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+    i = i + 1
+  endWhile
+  
+end</code>
+    </source>
+  </program>
+</programList>

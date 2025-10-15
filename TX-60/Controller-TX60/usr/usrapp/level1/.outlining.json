@@ -1,0 +1,57 @@
+﻿{
+  "programs": [
+    {
+      "mode": 3,
+      "name": "parameter_dio",
+      "nodes": []
+    },
+    {
+      "mode": 3,
+      "name": "stop",
+      "nodes": []
+    },
+    {
+      "mode": 3,
+      "name": "pickPistion",
+      "nodes": [
+        {
+          "start": 513,
+          "end": 2330,
+          "isCollapsed": false
+        },
+        {
+          "start": 2336,
+          "end": 2780,
+          "isCollapsed": false
+        }
+      ]
+    },
+    {
+      "mode": 3,
+      "name": "pickCylinder",
+      "nodes": [
+        {
+          "start": 87,
+          "end": 187,
+          "isCollapsed": false
+        }
+      ]
+    },
+    {
+      "mode": 3,
+      "name": "start",
+      "nodes": [
+        {
+          "start": 355,
+          "end": 1029,
+          "isCollapsed": false
+        },
+        {
+          "start": 430,
+          "end": 524,
+          "isCollapsed": false
+        }
+      ]
+    }
+  ]
+}

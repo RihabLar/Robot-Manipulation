@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="pickPistion" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  
+  isPiston = false
+  // Changing the tool for pick and place of the pistion
+  putln("Changing the Tool for pistion operations")
+  // Opening the piston gripper
+  open(tipTool[0])
+  waitEndMove()
+  
+  while(isPiston == false)
+    
+    // Sensing the presence of piston using piston sensor
+    movej(appro(pistonScan[j], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+    waitEndMove()
+    putln("Moving for piston scan")
+    movel(pistonScan[j], tipTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+    for k = 0 to 5 step 1
+      delay(0.1)
+      if(dioGet(pistonSense) == 1)
+        isPiston = true
+      endIf
+    endFor
+    putln("Sensing the Piston")
+    movej(appro(pistonScan[j], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+    waitEndMove()
+    
+    if(isPiston == true)
+      movej(appro(pistonPick[j], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+      waitEndMove()
+      
+      movel(pistonPick[j], tipTool[0], slowSpeed[0])
+      waitEndMove()
+      putln("Pistion pickup position reached")
+      // Closing the piston gripper
+      close(tipTool[0])
+      waitEndMove()
+      putln("Piston Picked")
+      
+      movej(appro(pistonPick[0], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+      waitEndMove()
+    endIf
+    
+    j = j+1
+    if(j &gt; 7)
+      putln("No more pistons...Program finished")
+      call stop()
+    endIf
+  endWhile
+  
+  // Moving to the assembly station for placing the piston
+  movej(appro(pistonAssembly[0], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+  waitEndMove()
+  putln("Assembly station postion reached")
+  
+  movel(pistonAssembly[0], tipTool[0], slowSpeed[0])
+  waitEndMove()
+  // Opening the piston gripper
+  open(tipTool[0])
+  waitEndMove()
+  putln("Piston placed on the assembly station")
+   
+  movej(appro(pistonAssembly[0], pistonOffset[0]), tipTool[0], mNomSpeed[0])
+  waitEndMove()
+  
+  // Closing the piston gripper
+  close(tipTool[0])
+  waitEndMove()
+  putln("Changing the Tool")
+        
+end</code>
+    </source>
+  </program>
+</programList>

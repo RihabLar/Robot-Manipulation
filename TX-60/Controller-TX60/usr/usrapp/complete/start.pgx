@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="start" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  userPage()
+  cls()
+  enablePower()
+  
+  mNomSpeed.vel = 30
+  for i = 0 to 3 step 1
+    if(cylinderSense = false)
+      dioSet(dispenser, 1)
+      dioSet(dispenser, 0)
+    endIf
+    
+  
+  endFor
+  
+  
+end
+            </code>
+    </source>
+  </program>
+</programList>

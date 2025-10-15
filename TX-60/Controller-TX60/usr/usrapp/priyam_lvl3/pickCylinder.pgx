@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programList xmlns="ProgramNameSpace">
+  <program name="pickCylinder" public="false">
+    <description />
+    <paramSection />
+    <localSection />
+    <source>
+      <code>begin
+  
+  // Controlling the cylinder dispenser and picking up the cylinder from it
+  while(dioGet(cylinderSense) == 0)
+    dioSet(dispenser, 1)
+  endWhile
+  
+  putln("Cylinder waiting on the dispenser")
+  
+  movej(appro(cylinDispenser[0], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+  waitEndMove()
+  
+  // Cylinder Gripper open
+  open(lateralTool[0])
+  waitEndMove()
+  movel(cylinDispenser[0], lateralTool[0], slowSpeed[0])
+  waitEndMove()
+  putln("Cylinder Pickup Postion reached")
+  // Cylinder Gripper closed
+  close(lateralTool[0])
+  waitEndMove()
+  
+  movej(appro(cylinDispenser[0], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+  waitEndMove()
+  putln("Cylinder picked")
+  dioSet(dispenser, 0)
+  
+  // Placing the cylinder to the assembly station
+  movej(appro(cylinAssembly[0], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+  waitEndMove()
+  putln("Assembly station position reached")
+  movel(cylinAssembly[0], lateralTool[0], slowSpeed[0])
+  waitEndMove()
+  // Cylinder Gripper open
+  open(lateralTool[0])
+  waitEndMove()
+  putln("Cylinder placed at the assembly station")
+  movel(appro(cylinAssembly[0], cylinderOffset[0]), lateralTool[0], mNomSpeed[0])
+  waitEndMove()
+  // Cylinder Gripper closed
+  close(lateralTool[0])
+  waitEndMove()  
+  
+end</code>
+    </source>
+  </program>
+</programList>
